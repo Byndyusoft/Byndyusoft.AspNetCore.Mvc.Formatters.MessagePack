@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Microsoft.AspNetCore.Mvc</RootNamespace>
+    <Version>0.1.0</Version>
+    <PackageId>Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</PackageId>
+    <Title>Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</Title>
+    <Authors>Byndyusoft</Authors>
+    <Description>ASP.NET Core MVC formatters for MessagePack input and output.</Description>
+    <PackageTags>Byndyusoft;AspNet;AspNetCore;Mvc;Formatters;MessagePack</PackageTags>
+    <RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>icon.png</PackageIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\projects\Byndyusoft\Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack\src\Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Byndyusoft.Net.Http.MessagePack" Version="0.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\icon.png" Pack="true" PackagePath="icon.png" />
+  </ItemGroup>
+
+</Project>

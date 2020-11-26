@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.DependencyInjection.MessagePackMvcBuilderExtensions">
+            <summary>
+            Extension methods for adding MessagePack formatters to MVC.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MessagePackMvcBuilderExtensions.AddMessagePackFormatters(Microsoft.Extensions.DependencyInjection.IMvcBuilder)">
+            <summary>
+            Adds the MessagePack formatters to MVC.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MessagePackMvcBuilderExtensions.AddMessagePackFormatters(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNetCore.Mvc.MvcMessagePackOptions})">
+            <summary>
+            Adds the MessagePack formatters to MVC.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</param>
+            <param name="setupAction">The <see cref="T:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions"/> which need to be configured.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MessagePackMvcBuilderExtensions.AddMessagePackFormatters(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder)">
+            <summary>
+            Adds the MessagePack formatters to MVC.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MessagePackMvcBuilderExtensions.AddMessagePackFormatters(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNetCore.Mvc.MvcMessagePackOptions})">
+            <summary>
+            Adds the MessagePack formatters to MVC.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder"/>.</param>
+            <param name="setupAction">The <see cref="T:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions"/> which need to be configured.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder"/>.</returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.MvcMessagePackOptionsSetup">
+            <summary>
+            A <see cref="T:Microsoft.Extensions.Options.IConfigureOptions`1"/> implementation which will add the
+            MessagePack serializer formatters to <see cref="T:Microsoft.AspNetCore.Mvc.MvcOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcMessagePackOptionsSetup.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Mvc.MvcMessagePackOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter"/>.
+            </summary>
+            <param name="loggerFactory">The <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/>.</param>
+            <param name="options">The <see cref="T:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions"/>.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.MvcMessagePackOptionsSetup.Configure(Microsoft.AspNetCore.Mvc.MvcOptions)">
+            <summary>
+            Adds the MessagePack serializer formatters to <see cref="T:Microsoft.AspNetCore.Mvc.MvcOptions"/>.
+            </summary>
+            <param name="options">The <see cref="T:Microsoft.AspNetCore.Mvc.MvcOptions"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.InputFormatter"/> for JSON content that uses <see cref="T:MessagePack.MessagePackSerializer"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter.#ctor(Microsoft.AspNetCore.Mvc.MvcMessagePackOptions,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter})">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter"/>.
+            </summary>
+            <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.</param>
+            <param name="options">The <see cref="T:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter.SerializerOptions">
+            <summary>
+            Gets the <see cref="T:MessagePack.MessagePackSerializerOptions"/> used to configure the <see cref="T:MessagePack.MessagePackSerializer"/>.
+            </summary>
+            <remarks>
+            A single instance of <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter"/> is used for all MessagePack formatting. Any
+            changes to the options will affect all input formatting.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter.Microsoft#AspNetCore#Mvc#Formatters#IInputFormatterExceptionPolicy#ExceptionPolicy">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter.CanReadType(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter.ReadRequestBodyAsync(Microsoft.AspNetCore.Mvc.Formatters.InputFormatterContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.Formatters.MessagePackOutputFormatter">
+            <summary>
+            A <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.OutputFormatter"/> for JSON content that uses <see cref="T:MessagePack.MessagePackSerializer"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Formatters.MessagePackOutputFormatter.#ctor(Microsoft.AspNetCore.Mvc.MvcMessagePackOptions)">
+            <summary>
+            Initializes a new <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.MessagePackOutputFormatter"/> instance.
+            </summary>
+            <param name="options">The <see cref="T:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.Formatters.MessagePackOutputFormatter.SerializerOptions">
+            <summary>
+            Gets the <see cref="T:MessagePack.MessagePackSerializerOptions"/> used to configure the <see cref="T:MessagePack.MessagePackSerializer"/>.
+            </summary>
+            <remarks>
+            A single instance of <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.MessagePackOutputFormatter"/> is used for all MessagePack formatting. Any
+            changes to the options will affect all output formatting.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Formatters.MessagePackOutputFormatter.CanWriteType(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Formatters.MessagePackOutputFormatter.WriteResponseBodyAsync(Microsoft.AspNetCore.Mvc.Formatters.OutputFormatterWriteContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.MessagePackResult">
+            <summary>
+                An action result which formats the given object as MessagePack.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.MessagePackResult.#ctor(System.Object)">
+            <summary>
+                Creates a new <see cref="T:Microsoft.AspNetCore.Mvc.MessagePackResult" /> with the given <paramref name="value" />.
+            </summary>
+            <param name="value">The value to format as MessagePack.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.MessagePackResult.#ctor(System.Object,MessagePack.MessagePackSerializerOptions)">
+            <summary>
+                Creates a new <see cref="T:Microsoft.AspNetCore.Mvc.MessagePackResult" /> with the given <paramref name="value" />.
+            </summary>
+            <param name="value">The value to format as MessagePack.</param>
+            <param name="serializerOptions">
+                The <see cref="T:MessagePack.MessagePackSerializerOptions" /> to be used by the formatter.
+            </param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.MessagePackResult.ContentType">
+            <summary>
+                Gets or sets the <see cref="T:Microsoft.Net.Http.Headers.MediaTypeHeaderValue" /> representing the Content-Type header of the response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.MessagePackResult.SerializerOptions">
+            <summary>
+                Gets or sets the <see cref="T:MessagePack.MessagePackSerializerOptions" />.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.MessagePackResult.Value">
+            <summary>
+                Gets or sets the value to be formatted.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.MessagePackResult.StatusCode">
+            <summary>
+                Gets or sets the HTTP status code.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.MessagePackResult.ExecuteResultAsync(Microsoft.AspNetCore.Mvc.ActionContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions">
+            <summary>
+            Provides configuration for MessagePack formatters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions.AllowInputFormatterExceptionMessages">
+            <summary>
+                Gets or sets a flag to determine whether error messages from JSON deserialization by the
+                <see cref="T:Microsoft.AspNetCore.Mvc.Formatters.MessagePackInputFormatter" /> will be added to the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary" />. The default
+                value is <c>false</c>, meaning that a generic error message will be used instead.
+            </summary>
+            <remarks>
+                <para>
+                    Error messages in the <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary" /> are often communicated to clients, either in HTML
+                    or using <see cref="T:Microsoft.AspNetCore.Mvc.BadRequestObjectResult" />. In effect, this setting controls whether clients can receive
+                    detailed error messages about submitted JSON data.
+                </para>
+                <para>
+                    This property is associated with a compatibility switch and can provide a different behavior depending on
+                    the configured compatibility version for the application. See <see cref="T:Microsoft.AspNetCore.Mvc.CompatibilityVersion" /> for
+                    guidance and examples of setting the application's compatibility version.
+                </para>
+                <para>
+                    Configuring the desired of the value compatibility switch by calling this property's setter will take
+                    precedence
+                    over the value implied by the application's <see cref="T:Microsoft.AspNetCore.Mvc.CompatibilityVersion" />.
+                </para>
+                <para>
+                    If the application's compatibility version is set to <see cref="F:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_0" /> then
+                    this setting will have value <c>false</c> unless explicitly configured.
+                </para>
+                <para>
+                    If the application's compatibility version is set to <see cref="F:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1" /> or
+                    higher then this setting will have value <c>true</c> unless explicitly configured.
+                </para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions.SupportedMediaTypes">
+            <summary>
+                Gets the mutable collection of media type elements supported by MessagePackFormatters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions.MediaTypeFormat">
+            <summary>
+                The format value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions.SerializerOptions">
+            <summary>
+                Gets and sets the <see cref="T:MessagePack.MessagePackSerializerOptions" /> that are used by this application.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.MvcMessagePackOptions.GetEnumerator">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
