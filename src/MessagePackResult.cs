@@ -17,8 +17,8 @@ namespace Microsoft.AspNetCore.Mvc
         /// </summary>
         /// <param name="value">The value to format as MessagePack.</param>
         public MessagePackResult(object value)
+            : this(value, MessagePackDefaults.SerializerOptions)
         {
-            Value = value;
         }
 
         /// <summary>
@@ -28,8 +28,9 @@ namespace Microsoft.AspNetCore.Mvc
         /// <param name="serializerOptions">
         ///     The <see cref="MessagePackSerializerOptions" /> to be used by the formatter.
         /// </param>
-        public MessagePackResult(object value, MessagePackSerializerOptions serializerOptions) : this(value)
+        public MessagePackResult(object value, MessagePackSerializerOptions serializerOptions)
         {
+            Value = value;
             SerializerOptions = serializerOptions ?? throw new ArgumentNullException(nameof(serializerOptions));
         }
 
@@ -41,7 +42,7 @@ namespace Microsoft.AspNetCore.Mvc
         /// <summary>
         ///     Gets or sets the <see cref="MessagePackSerializerOptions" />.
         /// </summary>
-        public MessagePackSerializerOptions SerializerOptions { get; } = MessagePackDefaults.SerializerOptions;
+        public MessagePackSerializerOptions SerializerOptions { get; set; }
 
         /// <summary>
         ///     Gets or sets the value to be formatted.

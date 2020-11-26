@@ -130,6 +130,19 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         }
 
         [Fact]
+        public void StatusCode_SerializerOptions()
+        {
+            // Arrange
+            var result = new MessagePackResult(null);
+
+            // Act
+            result.SerializerOptions = _options;
+
+            // Assert
+            Assert.Same(_options, result.SerializerOptions);
+        }
+
+        [Fact]
         public void StatusCode_Property()
         {
             // Arrange
