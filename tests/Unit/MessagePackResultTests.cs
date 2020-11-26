@@ -162,10 +162,10 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             var result = new MessagePackResult(null);
 
             // Act
-            result.ContentType = "json";
+            result.ContentType = "content/type";
 
             // Assert
-            Assert.Equal("json", result.ContentType);
+            Assert.Equal("content/type", result.ContentType);
         }
 
         private T ReadModel<T>(ActionContext context)

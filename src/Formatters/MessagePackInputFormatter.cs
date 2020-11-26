@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace Microsoft.AspNetCore.Mvc.Formatters
 {
     /// <summary>
-    /// A <see cref="InputFormatter"/> for JSON content that uses <see cref="MessagePackSerializer"/>.
+    /// A <see cref="InputFormatter"/> for MessagePack content that uses <see cref="MessagePackSerializer"/>.
     /// </summary>
     public class MessagePackInputFormatter : InputFormatter, IInputFormatterExceptionPolicy
     {

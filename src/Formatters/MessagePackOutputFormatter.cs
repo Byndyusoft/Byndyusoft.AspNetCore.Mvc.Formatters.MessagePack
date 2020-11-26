@@ -5,7 +5,7 @@ using MessagePack;
 namespace Microsoft.AspNetCore.Mvc.Formatters
 {
     /// <summary>
-    /// A <see cref="OutputFormatter"/> for JSON content that uses <see cref="MessagePackSerializer"/>.
+    /// A <see cref="OutputFormatter"/> for MessagePack content that uses <see cref="MessagePackSerializer"/>.
     /// </summary>
     public class MessagePackOutputFormatter : OutputFormatter
     {

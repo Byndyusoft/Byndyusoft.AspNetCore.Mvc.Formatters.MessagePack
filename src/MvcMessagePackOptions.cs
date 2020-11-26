@@ -28,7 +28,7 @@ namespace Microsoft.AspNetCore.Mvc
         }
 
         /// <summary>
-        ///     Gets or sets a flag to determine whether error messages from JSON deserialization by the
+        ///     Gets or sets a flag to determine whether error messages from MessagePack deserialization by the
         ///     <see cref="MessagePackInputFormatter" /> will be added to the <see cref="ModelStateDictionary" />. The default
         ///     value is <c>false</c>, meaning that a generic error message will be used instead.
         /// </summary>
@@ -36,7 +36,7 @@ namespace Microsoft.AspNetCore.Mvc
         ///     <para>
         ///         Error messages in the <see cref="ModelStateDictionary" /> are often communicated to clients, either in HTML
         ///         or using <see cref="BadRequestObjectResult" />. In effect, this setting controls whether clients can receive
-        ///         detailed error messages about submitted JSON data.
+        ///         detailed error messages about submitted MessagePack data.
         ///     </para>
         ///     <para>
         ///         This property is associated with a compatibility switch and can provide a different behavior depending on
