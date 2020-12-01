@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Net.Http.MessagePack;
 using System.Threading.Tasks;
 using MessagePack;
 
 namespace Microsoft.AspNetCore.Mvc.Formatters
 {
     /// <summary>
-    /// A <see cref="OutputFormatter"/> for MessagePack content that uses <see cref="MessagePackSerializer"/>.
+    ///     A <see cref="OutputFormatter" /> for MessagePack content that uses <see cref="MessagePackSerializer" />.
     /// </summary>
     public class MessagePackOutputFormatter : OutputFormatter
     {
         /// <summary>
-        /// Initializes a new <see cref="MessagePackOutputFormatter"/> instance.
+        ///     Initializes a new <see cref="MessagePackOutputFormatter" /> instance.
         /// </summary>
-        /// <param name="options">The <see cref="MvcMessagePackOptions"/>.</param>
+        /// <param name="options">The <see cref="MvcMessagePackOptions" />.</param>
         public MessagePackOutputFormatter(MvcMessagePackOptions options)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
@@ -23,11 +24,11 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         }
 
         /// <summary>
-        /// Gets the <see cref="MessagePackSerializerOptions"/> used to configure the <see cref="MessagePackSerializer"/>.
+        ///     Gets the <see cref="MessagePackSerializerOptions" /> used to configure the <see cref="MessagePackSerializer" />.
         /// </summary>
         /// <remarks>
-        /// A single instance of <see cref="MessagePackOutputFormatter"/> is used for all MessagePack formatting. Any
-        /// changes to the options will affect all output formatting.
+        ///     A single instance of <see cref="MessagePackOutputFormatter" /> is used for all MessagePack formatting. Any
+        ///     changes to the options will affect all output formatting.
         /// </remarks>
         public MessagePackSerializerOptions SerializerOptions { get; }
 
@@ -42,10 +43,8 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
 
-            if (context.Object == null) return;
-
-            await MessagePackSerializer.SerializeAsync(context.HttpContext.Response.Body, context.Object, SerializerOptions)
-                .ConfigureAwait(false);
+            using var content = MessagePackContent.Create(context.Object, context.ObjectType, SerializerOptions);
+            await content.CopyToAsync(context.HttpContext.Response.Body).ConfigureAwait(false);
         }
     }
 }

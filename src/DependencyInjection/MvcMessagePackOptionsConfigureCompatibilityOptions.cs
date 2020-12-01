@@ -8,7 +8,8 @@ using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    internal class MvcMessagePackOptionsConfigureCompatibilityOptions : ConfigureCompatibilityOptions<MvcMessagePackOptions>
+    internal class
+        MvcMessagePackOptionsConfigureCompatibilityOptions : ConfigureCompatibilityOptions<MvcMessagePackOptions>
     {
         public MvcMessagePackOptionsConfigureCompatibilityOptions(
             ILoggerFactory loggerFactory,

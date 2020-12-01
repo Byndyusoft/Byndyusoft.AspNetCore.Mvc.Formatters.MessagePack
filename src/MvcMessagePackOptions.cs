@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Microsoft.AspNetCore.Mvc
 {
     /// <summary>
-    /// Provides configuration for MessagePack formatters.
+    ///     Provides configuration for MessagePack formatters.
     /// </summary>
     public class MvcMessagePackOptions : IEnumerable<ICompatibilitySwitch>
     {
         private readonly CompatibilitySwitch<bool> _allowInputFormatterExceptionMessages;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MvcMessagePackOptions"/>.
+        ///     Initializes a new instance of <see cref="MvcMessagePackOptions" />.
         /// </summary>
         public MvcMessagePackOptions()
         {

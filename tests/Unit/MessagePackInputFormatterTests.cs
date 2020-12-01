@@ -20,8 +20,8 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
     public class MessagePackInputFormatterTests
     {
         private readonly MessagePackInputFormatter _formatter;
-        private readonly MessagePackSerializerOptions _options;
         private readonly NullLogger<MessagePackInputFormatter> _logger;
+        private readonly MessagePackSerializerOptions _options;
 
         public MessagePackInputFormatterTests()
         {
