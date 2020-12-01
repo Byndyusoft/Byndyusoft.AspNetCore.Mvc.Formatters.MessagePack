@@ -61,10 +61,9 @@ namespace Microsoft.AspNetCore.Mvc
 
             context.HttpContext.Response.ContentType = ContentType;
 
-            if (Value != null)
-                await MessagePackSerializer
-                    .SerializeAsync(Value.GetType(), context.HttpContext.Response.Body, Value, SerializerOptions)
-                    .ConfigureAwait(false);
+            using var content = MessagePackContent.Create(Value, Value?.GetType() ?? typeof(object), SerializerOptions);
+            await content.CopyToAsync(context.HttpContext.Response.Body)
+                .ConfigureAwait(false);
         }
     }
 }

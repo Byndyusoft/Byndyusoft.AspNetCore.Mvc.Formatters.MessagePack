@@ -128,7 +128,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             Assert.NotNull(model);
             model.Verify();
         }
-
+        
         [Fact]
         public void StatusCode_SerializerOptions()
         {
@@ -183,9 +183,6 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
 
         private T ReadModel<T>(ActionContext context)
         {
-            if (context.HttpContext.Response.Body.Length == 0)
-                return default;
-
             context.HttpContext.Response.Body.Position = 0;
             return MessagePackSerializer.Deserialize<T>(context.HttpContext.Response.Body, _options);
         }
