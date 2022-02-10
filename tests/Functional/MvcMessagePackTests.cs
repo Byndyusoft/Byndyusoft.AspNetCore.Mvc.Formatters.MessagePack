@@ -32,7 +32,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Functional
         {
             // Act
             var response =
-                await Client.PostAsMessagePackAsync<SimpleModel>("/msgpack-formatter/echo", null, _serializerOptions);
+                await Client.PostAsMessagePackAsync<SimpleModel>("/msgpack-formatter/echo", null!, _serializerOptions);
 
             // Asert
             response.EnsureSuccessStatusCode();

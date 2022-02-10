@@ -48,12 +48,13 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         }
 
         [Theory]
+        [InlineData(null, true)]
         [InlineData(typeof(int), true)]
         [InlineData(typeof(Class), true)]
         [InlineData(typeof(Struct), true)]
         [InlineData(typeof(Abstract), false)]
         [InlineData(typeof(IInterface), false)]
-        public void CanRead(Type type, bool expected)
+        public void CanRead(Type? type, bool expected)
         {
             // Arrange
             var context = CreateContext(type);
@@ -123,7 +124,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             model.Verify();
         }
 
-        private InputFormatterContext CreateContext(Type modelType, object model = null,
+        private InputFormatterContext CreateContext(Type? modelType, object? model = null,
             bool treatEmptyInputAsDefaultValue = false)
         {
             var memoryStream = new MemoryStream();
@@ -143,7 +144,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
                 return new StreamReader(stream, encoding);
             }
 
-            return new InputFormatterContext(httpContext, modelType.Name, modelStateDictionary, modelMetadata,
+            return new InputFormatterContext(httpContext, modelType?.Name, modelStateDictionary, modelMetadata,
                 ReaderFactory, treatEmptyInputAsDefaultValue);
         }
     }

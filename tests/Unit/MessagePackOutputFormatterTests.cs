@@ -113,7 +113,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             model.Verify();
         }
 
-        private object ReadModel(Type modelType, OutputFormatterWriteContext context)
+        private object? ReadModel(Type modelType, OutputFormatterWriteContext context)
         {
             if (context.HttpContext.Response.Body.Length == 0)
                 return null;
@@ -122,7 +122,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             return MessagePackSerializer.Deserialize(modelType, context.HttpContext.Response.Body, _options);
         }
 
-        private OutputFormatterWriteContext CreateContext(Type modelType, object model)
+        private OutputFormatterWriteContext CreateContext(Type? modelType, object? model)
         {
             var httpContext = new DefaultHttpContext();
             httpContext.Response.Body = new MemoryStream();

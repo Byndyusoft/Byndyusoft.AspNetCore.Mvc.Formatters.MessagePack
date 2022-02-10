@@ -25,10 +25,10 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
 
         internal MessagePackOutputFormatter(MessagePackSerializerOptions serializerOptions)
         {
+            SerializerOptions = Guard.NotNull(serializerOptions, nameof(serializerOptions));
+
             SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationXMessagePack);
             SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationMessagePack);
-
-            SerializerOptions = Guard.NotNull(serializerOptions, nameof(serializerOptions));
         }
 
 
@@ -54,6 +54,7 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
 
             await using var content = MessagePackContent.Create(context.ObjectType ?? typeof(object), context.Object, SerializerOptions);
             await content.CopyToAsync(context.HttpContext.Response.Body).ConfigureAwait(false);
+            content.Headers.ContentLength = context.HttpContext.Response.ContentLength;
         }
     }
 }
