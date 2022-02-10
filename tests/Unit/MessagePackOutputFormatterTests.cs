@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
+﻿using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
 using Byndyusoft.AspNetCore.Mvc.Formatters.Unit.Types;
 using MessagePack;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit

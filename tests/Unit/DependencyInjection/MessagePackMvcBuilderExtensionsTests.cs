@@ -1,9 +1,9 @@
-﻿using System;
-using System.Net.Http.MessagePack;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System;
+using System.Net.Http.MessagePack;
 using Xunit;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
@@ -65,13 +65,13 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
             var mvcOptions = _serviceCollection.BuildServiceProvider().GetService<IOptions<MvcOptions>>().Value;
 
             // Assert
-            var inputFormatter = (MessagePackInputFormatter) Assert.Single(mvcOptions.InputFormatters,
+            var inputFormatter = (MessagePackInputFormatter)Assert.Single(mvcOptions.InputFormatters,
                 x => x.GetType() == typeof(MessagePackInputFormatter));
-            Assert.Equal(inputFormatter!.SupportedMediaTypes, new[] {"application/mediatype"});
+            Assert.Equal(inputFormatter!.SupportedMediaTypes, new[] { "application/mediatype" });
 
-            var outputFormatter = (MessagePackOutputFormatter) Assert.Single(mvcOptions.OutputFormatters,
+            var outputFormatter = (MessagePackOutputFormatter)Assert.Single(mvcOptions.OutputFormatters,
                 x => x.GetType() == typeof(MessagePackOutputFormatter));
-            Assert.Equal(outputFormatter!.SupportedMediaTypes, new[] {"application/mediatype"});
+            Assert.Equal(outputFormatter!.SupportedMediaTypes, new[] { "application/mediatype" });
 
             var mapping = mvcOptions.FormatterMappings.GetMediaTypeMappingForFormat("format");
             Assert.NotNull(mapping);
@@ -147,13 +147,13 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
             var mvcOptions = _serviceCollection.BuildServiceProvider().GetService<IOptions<MvcOptions>>().Value;
 
             // Assert
-            var inputFormatter = (MessagePackInputFormatter) Assert.Single(mvcOptions.InputFormatters,
+            var inputFormatter = (MessagePackInputFormatter)Assert.Single(mvcOptions.InputFormatters,
                 x => x.GetType() == typeof(MessagePackInputFormatter));
-            Assert.Equal(inputFormatter!.SupportedMediaTypes, new[] {"application/mediatype"});
+            Assert.Equal(inputFormatter!.SupportedMediaTypes, new[] { "application/mediatype" });
 
-            var outputFormatter = (MessagePackOutputFormatter) Assert.Single(mvcOptions.OutputFormatters,
+            var outputFormatter = (MessagePackOutputFormatter)Assert.Single(mvcOptions.OutputFormatters,
                 x => x.GetType() == typeof(MessagePackOutputFormatter));
-            Assert.Equal(outputFormatter!.SupportedMediaTypes, new[] {"application/mediatype"});
+            Assert.Equal(outputFormatter!.SupportedMediaTypes, new[] { "application/mediatype" });
 
             var mapping = mvcOptions.FormatterMappings.GetMediaTypeMappingForFormat("format");
             Assert.NotNull(mapping);

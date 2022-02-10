@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net.Http.MessagePack;
-using System.Text;
-using System.Threading.Tasks;
-using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
+﻿using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
 using Byndyusoft.AspNetCore.Mvc.Formatters.Unit.Types;
 using MessagePack;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +8,11 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
+using System;
+using System.IO;
+using System.Net.Http.MessagePack;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit

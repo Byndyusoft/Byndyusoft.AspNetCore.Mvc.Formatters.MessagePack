@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MessagePack;
+using System;
 using System.Net.Http.MessagePack;
 using System.Threading.Tasks;
-using MessagePack;
 
 namespace Microsoft.AspNetCore.Mvc.Formatters
 {

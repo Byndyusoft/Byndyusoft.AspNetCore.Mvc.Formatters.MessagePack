@@ -1,10 +1,10 @@
 ﻿// ReSharper disable CheckNamespace
 
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

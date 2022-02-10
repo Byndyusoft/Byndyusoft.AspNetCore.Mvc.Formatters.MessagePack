@@ -1,14 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Net.Http.MessagePack;
-using System.Threading.Tasks;
-using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
+﻿using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
 using MessagePack;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
+using System.Net.Http.MessagePack;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
@@ -177,7 +177,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         private ActionContext CreateContext()
         {
             var services = new ServiceCollection();
-                services.AddLogging();
+            services.AddLogging();
             services.AddMvc();
             services.AddMvcCore();
 

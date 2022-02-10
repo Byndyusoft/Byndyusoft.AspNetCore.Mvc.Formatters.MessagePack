@@ -1,9 +1,9 @@
-﻿using System;
+﻿using MessagePack;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Http;
 using System.Net.Http.MessagePack;
 using System.Threading.Tasks;
-using MessagePack;
-using Microsoft.Extensions.Logging;
 
 namespace Microsoft.AspNetCore.Mvc.Formatters
 {

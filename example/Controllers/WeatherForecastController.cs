@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Models;
+﻿using Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    
+
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = {
@@ -21,11 +21,11 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Controllers
         {
             var rng = new Random();
             var forecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-                {
-                    Date = DateTime.Now.AddDays(index),
-                    TemperatureC = rng.Next(-20, 55),
-                    Summary = Summaries[rng.Next(Summaries.Length)],
-                })
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)],
+            })
                 .ToArray();
 
             return Ok(forecast);

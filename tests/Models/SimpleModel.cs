@@ -1,5 +1,5 @@
-﻿using System.IO;
-using MessagePack;
+﻿using MessagePack;
+using System.IO;
 using Xunit;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.Models
@@ -24,7 +24,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Models
                 Property = 10,
                 Enum = SeekOrigin.Current,
                 Field = "string",
-                Array = new[] {1, 2},
+                Array = new[] { 1, 2 },
                 Nullable = 100
             };
         }

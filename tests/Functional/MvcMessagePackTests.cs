@@ -1,9 +1,9 @@
-using System.Net.Http;
-using System.Net.Http.MessagePack;
-using System.Threading.Tasks;
 using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http;
+using System.Net.Http.MessagePack;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.Functional

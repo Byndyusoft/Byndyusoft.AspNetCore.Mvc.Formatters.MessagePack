@@ -1,7 +1,7 @@
-﻿using System.Net.Http.MessagePack;
-using System.Threading.Tasks;
-using MessagePack;
+﻿using MessagePack;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using System.Net.Http.MessagePack;
+using System.Threading.Tasks;
 
 namespace Microsoft.AspNetCore.Mvc
 {
@@ -36,7 +36,7 @@ namespace Microsoft.AspNetCore.Mvc
 
             SerializerOptions = Guard.NotNull(serializerOptions, nameof(serializerOptions));
         }
-        
+
         /// <summary>
         ///     Gets or sets the <see cref="MessagePackSerializerOptions" />.
         /// </summary>
