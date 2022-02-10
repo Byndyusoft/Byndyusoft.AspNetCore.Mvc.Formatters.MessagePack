@@ -29,7 +29,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
 
             // Act
             // ReSharper disable once ExpressionIsAlwaysNull
-            var exception = Assert.Throws<ArgumentNullException>(() => builder.AddMessagePackFormatters());
+            var exception = Assert.Throws<ArgumentNullException>(() => builder!.AddMessagePackFormatters());
 
             // Assert
             Assert.Equal("builder", exception.ParamName);
@@ -87,7 +87,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
             // Act
             // ReSharper disable once ExpressionIsAlwaysNull
             var exception =
-                Assert.Throws<ArgumentNullException>(() => builder.AddMessagePackFormatters(options => { }));
+                Assert.Throws<ArgumentNullException>(() => builder!.AddMessagePackFormatters(options => { }));
 
             // Assert
             Assert.Equal("builder", exception.ParamName);
@@ -97,7 +97,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
         public void AddMessagePackFormatters_IMvcBuilder_Options_NullOptions_ThrowsException()
         {
             // Act
-            var exception = Assert.Throws<ArgumentNullException>(() => _mvcBuilder.AddMessagePackFormatters(null));
+            var exception = Assert.Throws<ArgumentNullException>(() => _mvcBuilder.AddMessagePackFormatters(null!));
 
             // Assert
             Assert.Equal("setupAction", exception.ParamName);
@@ -111,7 +111,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
 
             // Act
             // ReSharper disable once ExpressionIsAlwaysNull
-            var exception = Assert.Throws<ArgumentNullException>(() => builder.AddMessagePackFormatters());
+            var exception = Assert.Throws<ArgumentNullException>(() => builder!.AddMessagePackFormatters());
 
             // Assert
             Assert.Equal("builder", exception.ParamName);
@@ -169,7 +169,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
             // Act
             // ReSharper disable once ExpressionIsAlwaysNull
             var exception =
-                Assert.Throws<ArgumentNullException>(() => builder.AddMessagePackFormatters(options => { }));
+                Assert.Throws<ArgumentNullException>(() => builder!.AddMessagePackFormatters(options => { }));
 
             // Assert
             Assert.Equal("builder", exception.ParamName);
@@ -179,7 +179,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
         public void AddMessagePackFormatters_IMvcCoreBuilder_Options_NullOptions_ThrowsException()
         {
             // Act
-            var exception = Assert.Throws<ArgumentNullException>(() => _mvcCoreBuilder.AddMessagePackFormatters(null));
+            var exception = Assert.Throws<ArgumentNullException>(() => _mvcCoreBuilder.AddMessagePackFormatters(null!));
 
             // Assert
             Assert.Equal("setupAction", exception.ParamName);

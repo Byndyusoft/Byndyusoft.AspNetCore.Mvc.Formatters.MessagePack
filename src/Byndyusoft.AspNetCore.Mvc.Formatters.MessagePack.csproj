@@ -1,27 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>Microsoft.AspNetCore.Mvc</RootNamespace>
-    <Version>0.3.0</Version>
-    <PackageId>Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</PackageId>
-    <Title>Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</Title>
-    <Authors>Byndyusoft</Authors>
-    <Description>ASP.NET Core MVC formatters for MessagePack input and output.</Description>
-    <PackageTags>Byndyusoft;AspNet;AspNetCore;Mvc;Formatters;MessagePack</PackageTags>
-    <RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<IsPackable>true</IsPackable>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<RootNamespace>Microsoft.AspNetCore.Mvc</RootNamespace>
+		<Version>0.3.0</Version>
+		<PackageId>Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</PackageId>
+		<Title>Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</Title>
+		<Authors>Byndyusoft</Authors>
+		<Description>ASP.NET Core MVC formatters for MessagePack input and output.</Description>
+		<PackageTags>Byndyusoft;AspNet;AspNetCore;Mvc;Formatters;MessagePack</PackageTags>
+		<RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Byndyusoft.Net.Http.MessagePack" Version="0.3.0" />
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\icon.png" Pack="true" PackagePath="icon.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="$(SolutionDir)\icon.png" Pack="true" PackagePath="icon.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Byndyusoft.Net.Http.MessagePack" Version="0.5.1" />
+	</ItemGroup>
 
 </Project>

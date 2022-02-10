@@ -24,12 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Functional\Formatters\" />
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\src\Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.csproj" />
+    <ProjectReference Include="$(SolutionDir)\src\Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.csproj" />
   </ItemGroup>
 
 </Project>

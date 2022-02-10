@@ -41,6 +41,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         }
 
         [Theory]
+        [InlineData(null, true)]
         [InlineData(typeof(int), true)]
         [InlineData(typeof(Class), true)]
         [InlineData(typeof(Struct), true)]
@@ -63,7 +64,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         {
             // Act
             var exception =
-                await Assert.ThrowsAsync<ArgumentNullException>(() => _formatter.WriteResponseBodyAsync(null));
+                await Assert.ThrowsAsync<ArgumentNullException>(() => _formatter.WriteResponseBodyAsync(null!));
 
             // Assert
             Assert.Equal("context", exception.ParamName);

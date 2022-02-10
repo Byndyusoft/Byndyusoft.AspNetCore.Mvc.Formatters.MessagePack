@@ -19,7 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The <see cref="IMvcBuilder" />.</returns>
         public static IMvcBuilder AddMessagePackFormatters(this IMvcBuilder builder)
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            Guard.NotNull(builder, nameof(builder));
 
             AddMessagePackFormatterServices(builder.Services);
             return builder;
@@ -34,8 +34,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IMvcBuilder AddMessagePackFormatters(this IMvcBuilder builder,
             Action<MvcMessagePackOptions> setupAction)
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
-            if (setupAction == null) throw new ArgumentNullException(nameof(setupAction));
+            Guard.NotNull(builder, nameof(builder));
+            Guard.NotNull(setupAction, nameof(setupAction));
 
             builder.Services.Configure(setupAction);
 
@@ -49,7 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The <see cref="IMvcCoreBuilder" />.</returns>
         public static IMvcCoreBuilder AddMessagePackFormatters(this IMvcCoreBuilder builder)
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            Guard.NotNull(builder, nameof(builder));
 
             AddMessagePackFormatterServices(builder.Services);
             return builder;
@@ -64,8 +64,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IMvcCoreBuilder AddMessagePackFormatters(this IMvcCoreBuilder builder,
             Action<MvcMessagePackOptions> setupAction)
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
-            if (setupAction == null) throw new ArgumentNullException(nameof(setupAction));
+            Guard.NotNull(builder, nameof(builder));
+            Guard.NotNull(setupAction, nameof(setupAction));
 
             builder.Services.Configure(setupAction);
 
@@ -76,10 +76,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.TryAddEnumerable(
                 ServiceDescriptor.Transient<IConfigureOptions<MvcOptions>, MvcMessagePackOptionsSetup>());
-            services.TryAddEnumerable(
-                ServiceDescriptor
-                    .Transient<IPostConfigureOptions<MvcMessagePackOptions>,
-                        MvcMessagePackOptionsConfigureCompatibilityOptions>());
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
     /// </summary>
     public class MessagePackInputFormatter : InputFormatter, IInputFormatterExceptionPolicy
     {
+        //private readonly MessagePackMediaTypeFormatter
         private readonly ILogger<MessagePackInputFormatter> _logger;
 
         /// <summary>
@@ -21,8 +22,9 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         /// <param name="options">The <see cref="MvcMessagePackOptions" />.</param>
         public MessagePackInputFormatter(MvcMessagePackOptions options, ILogger<MessagePackInputFormatter> logger)
         {
-            if (options == null) throw new ArgumentNullException(nameof(options));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            Guard.NotNull(options, nameof(options));
+
+            _logger = Guard.NotNull(logger, nameof(logger));
 
             SerializerOptions = options.SerializerOptions;
 
@@ -43,17 +45,17 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
             InputFormatterExceptionPolicy.MalformedInputExceptions;
 
         /// <inheritdoc />
-        protected override bool CanReadType(Type type)
+        protected override bool CanReadType(Type? type)
         {
-            return base.CanReadType(type) && !type.IsAbstract && !type.IsInterface;
+            return type == null || base.CanReadType(type) && MessagePackContent.CanSerialize(type);
         }
 
         /// <inheritdoc />
         public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            Guard.NotNull(context, nameof(context));
 
-            object model;
+            object? model;
 
             try
             {
@@ -80,7 +82,7 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
             // ReSharper disable InconsistentNaming
             private static readonly Action<ILogger, string, Exception> _msgpackInputFormatterException;
 
-            private static readonly Action<ILogger, string, Exception> _msgpackInputSuccess;
+            private static readonly Action<ILogger, string, Exception?> _msgpackInputSuccess;
             // ReSharper enable InconsistentNaming
 
             static Log()
@@ -102,7 +104,7 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
 
             public static void MessagePackInputSuccess(ILogger logger, Type modelType)
             {
-                _msgpackInputSuccess(logger, modelType.FullName, null);
+                _msgpackInputSuccess(logger, modelType.FullName!, null);
             }
         }
     }

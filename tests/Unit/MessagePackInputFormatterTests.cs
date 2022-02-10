@@ -70,7 +70,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         {
             // Act
             var exception =
-                await Assert.ThrowsAsync<ArgumentNullException>(() => _formatter.ReadRequestBodyAsync(null));
+                await Assert.ThrowsAsync<ArgumentNullException>(() => _formatter.ReadRequestBodyAsync(null!));
 
             // Assert
             Assert.Equal("context", exception.ParamName);

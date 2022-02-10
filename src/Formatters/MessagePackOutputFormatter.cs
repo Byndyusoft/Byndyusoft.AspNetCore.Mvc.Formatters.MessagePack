@@ -16,12 +16,21 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         /// <param name="options">The <see cref="MvcMessagePackOptions" />.</param>
         public MessagePackOutputFormatter(MvcMessagePackOptions options)
         {
-            if (options == null) throw new ArgumentNullException(nameof(options));
+            Guard.NotNull(options, nameof(options));
 
             SerializerOptions = options.SerializerOptions;
 
             foreach (var mediaType in options.SupportedMediaTypes) SupportedMediaTypes.Add(mediaType);
         }
+
+        internal MessagePackOutputFormatter(MessagePackSerializerOptions serializerOptions)
+        {
+            SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationXMessagePack);
+            SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationMessagePack);
+
+            SerializerOptions = Guard.NotNull(serializerOptions, nameof(serializerOptions));
+        }
+
 
         /// <summary>
         ///     Gets the <see cref="MessagePackSerializerOptions" /> used to configure the <see cref="MessagePackSerializer" />.
@@ -33,17 +42,17 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         public MessagePackSerializerOptions SerializerOptions { get; }
 
         /// <inheritdoc />
-        protected override bool CanWriteType(Type type)
+        protected override bool CanWriteType(Type? type)
         {
-            return base.CanWriteType(type) && !type.IsAbstract && !type.IsInterface;
+            return type == null || base.CanWriteType(type) && MessagePackContent.CanSerialize(type);
         }
 
         /// <inheritdoc />
         public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            Guard.NotNull(context, nameof(context));
 
-            using var content = MessagePackContent.Create(context.Object, context.ObjectType, SerializerOptions);
+            await using var content = MessagePackContent.Create(context.ObjectType ?? typeof(object), context.Object, SerializerOptions);
             await content.CopyToAsync(context.HttpContext.Response.Body).ConfigureAwait(false);
         }
     }
