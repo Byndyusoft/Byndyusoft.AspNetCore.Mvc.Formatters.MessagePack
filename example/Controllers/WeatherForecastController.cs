@@ -5,15 +5,20 @@ using System.Linq;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Controllers
 {
+    /// <summary>
+    ///     WeatherForecastController
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
-
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching",
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        /// <summary>
+        ///     Get
+        /// </summary>
         [HttpGet]
         [FormatFilter]
 

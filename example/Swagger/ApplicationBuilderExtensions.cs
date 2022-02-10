@@ -4,8 +4,14 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Swagger
 {
+    /// <summary>
+    ///     ApplicationBuilderExtensions
+    /// </summary>
     public static class ApplicationBuilderExtensions
     {
+        /// <summary>
+        ///     UseSwagger
+        /// </summary>
         public static IApplicationBuilder UseSwagger(
             this IApplicationBuilder builder,
             IApiVersionDescriptionProvider apiVersionDescriptionProvider)

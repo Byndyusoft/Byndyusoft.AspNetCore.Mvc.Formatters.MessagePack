@@ -3,14 +3,20 @@ using Microsoft.Extensions.Hosting;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack
 {
-    public class Program
+    /// <summary>
+    ///     Program
+    /// </summary>
+    public static class Program
     {
+        /// <summary>
+        ///     Main
+        /// </summary>
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args)
+        private static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
                        .ConfigureWebHostDefaults(webBuilder =>

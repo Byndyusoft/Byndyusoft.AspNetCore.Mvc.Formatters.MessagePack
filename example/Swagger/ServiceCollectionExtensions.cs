@@ -4,8 +4,14 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Swagger
 {
+    /// <summary>
+    ///     ServiceCollectionExtensions
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        ///     AddSwagger
+        /// </summary>
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             return

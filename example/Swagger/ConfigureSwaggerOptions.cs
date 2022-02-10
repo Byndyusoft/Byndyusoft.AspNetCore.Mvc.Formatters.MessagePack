@@ -9,15 +9,22 @@ using System.Reflection;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Swagger
 {
+    /// <summary>
+    ///     ConfigureSwaggerOptions
+    /// </summary>
     public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         private readonly IApiVersionDescriptionProvider _apiVersionDescriptionProvider;
 
+        /// <summary>
+        ///     ConfigureSwaggerOptions
+        /// </summary>
         public ConfigureSwaggerOptions(IApiVersionDescriptionProvider apiVersionDescriptionProvider)
         {
             _apiVersionDescriptionProvider = apiVersionDescriptionProvider;
         }
 
+        /// <inheritdoc />
         public void Configure(SwaggerGenOptions options)
         {
             foreach (var apiVersionDescription in _apiVersionDescriptionProvider.ApiVersionDescriptions)
