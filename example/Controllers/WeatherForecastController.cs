@@ -19,9 +19,8 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Controllers
         /// <summary>
         ///     Get
         /// </summary>
-        [HttpGet]
+        [HttpGet(".{format?}")]
         [FormatFilter]
-
         public IActionResult Get()
         {
             var rng = new Random();
