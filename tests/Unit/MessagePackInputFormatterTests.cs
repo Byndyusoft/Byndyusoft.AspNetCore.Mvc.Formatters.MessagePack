@@ -127,6 +127,8 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         private InputFormatterContext CreateContext(Type? modelType, object? model = null,
             bool treatEmptyInputAsDefaultValue = false)
         {
+            modelType ??= typeof(object);
+
             var memoryStream = new MemoryStream();
             if (model != null) MessagePackSerializer.Serialize(modelType, memoryStream, model, _options);
 
@@ -144,7 +146,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
                 return new StreamReader(stream, encoding);
             }
 
-            return new InputFormatterContext(httpContext, modelType?.Name, modelStateDictionary, modelMetadata,
+            return new InputFormatterContext(httpContext, modelType.Name, modelStateDictionary, modelMetadata,
                 ReaderFactory, treatEmptyInputAsDefaultValue);
         }
     }
