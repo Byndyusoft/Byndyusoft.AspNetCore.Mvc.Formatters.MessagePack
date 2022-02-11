@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
+﻿using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
 using Byndyusoft.AspNetCore.Mvc.Formatters.Unit.Types;
 using MessagePack;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
@@ -41,6 +41,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         }
 
         [Theory]
+        [InlineData(null, true)]
         [InlineData(typeof(int), true)]
         [InlineData(typeof(Class), true)]
         [InlineData(typeof(Struct), true)]
@@ -63,7 +64,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         {
             // Act
             var exception =
-                await Assert.ThrowsAsync<ArgumentNullException>(() => _formatter.WriteResponseBodyAsync(null));
+                await Assert.ThrowsAsync<ArgumentNullException>(() => _formatter.WriteResponseBodyAsync(null!));
 
             // Assert
             Assert.Equal("context", exception.ParamName);
@@ -112,7 +113,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             model.Verify();
         }
 
-        private object ReadModel(Type modelType, OutputFormatterWriteContext context)
+        private object? ReadModel(Type modelType, OutputFormatterWriteContext context)
         {
             if (context.HttpContext.Response.Body.Length == 0)
                 return null;
@@ -121,7 +122,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             return MessagePackSerializer.Deserialize(modelType, context.HttpContext.Response.Body, _options);
         }
 
-        private OutputFormatterWriteContext CreateContext(Type modelType, object model)
+        private OutputFormatterWriteContext CreateContext(Type? modelType, object? model)
         {
             var httpContext = new DefaultHttpContext();
             httpContext.Response.Body = new MemoryStream();

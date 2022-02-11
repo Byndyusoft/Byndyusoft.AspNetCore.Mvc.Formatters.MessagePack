@@ -1,22 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net.Http.MessagePack;
-using MessagePack;
+﻿using MessagePack;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections;
+using System.Collections.Generic;
+using System.Net.Http.MessagePack;
 
 namespace Microsoft.AspNetCore.Mvc
 {
     /// <summary>
-    /// Provides configuration for MessagePack formatters.
+    ///     Provides configuration for MessagePack formatters.
     /// </summary>
     public class MvcMessagePackOptions : IEnumerable<ICompatibilitySwitch>
     {
         private readonly CompatibilitySwitch<bool> _allowInputFormatterExceptionMessages;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MvcMessagePackOptions"/>.
+        ///     Initializes a new instance of <see cref="MvcMessagePackOptions" />.
         /// </summary>
         public MvcMessagePackOptions()
         {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net.Http.MessagePack;
-using System.Text;
-using System.Threading.Tasks;
-using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
+﻿using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
 using Byndyusoft.AspNetCore.Mvc.Formatters.Unit.Types;
 using MessagePack;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +8,11 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
+using System;
+using System.IO;
+using System.Net.Http.MessagePack;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
@@ -20,8 +20,8 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
     public class MessagePackInputFormatterTests
     {
         private readonly MessagePackInputFormatter _formatter;
-        private readonly MessagePackSerializerOptions _options;
         private readonly NullLogger<MessagePackInputFormatter> _logger;
+        private readonly MessagePackSerializerOptions _options;
 
         public MessagePackInputFormatterTests()
         {
@@ -48,12 +48,13 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         }
 
         [Theory]
+        [InlineData(null, true)]
         [InlineData(typeof(int), true)]
         [InlineData(typeof(Class), true)]
         [InlineData(typeof(Struct), true)]
         [InlineData(typeof(Abstract), false)]
         [InlineData(typeof(IInterface), false)]
-        public void CanRead(Type type, bool expected)
+        public void CanRead(Type? type, bool expected)
         {
             // Arrange
             var context = CreateContext(type);
@@ -70,7 +71,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
         {
             // Act
             var exception =
-                await Assert.ThrowsAsync<ArgumentNullException>(() => _formatter.ReadRequestBodyAsync(null));
+                await Assert.ThrowsAsync<ArgumentNullException>(() => _formatter.ReadRequestBodyAsync(null!));
 
             // Assert
             Assert.Equal("context", exception.ParamName);
@@ -123,9 +124,11 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             model.Verify();
         }
 
-        private InputFormatterContext CreateContext(Type modelType, object model = null,
+        private InputFormatterContext CreateContext(Type? modelType, object? model = null,
             bool treatEmptyInputAsDefaultValue = false)
         {
+            modelType ??= typeof(object);
+
             var memoryStream = new MemoryStream();
             if (model != null) MessagePackSerializer.Serialize(modelType, memoryStream, model, _options);
 

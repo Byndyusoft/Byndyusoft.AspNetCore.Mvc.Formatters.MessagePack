@@ -1,13 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Net.Http.MessagePack;
-using System.Threading.Tasks;
-using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
+﻿using Byndyusoft.AspNetCore.Mvc.Formatters.Models;
 using MessagePack;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
+using System.Net.Http.MessagePack;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
@@ -27,7 +28,6 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
 
             // Assert
             Assert.Equal(model, result.Value);
-            Assert.Equal(MessagePackDefaults.MediaType, result.ContentType);
         }
 
         [Fact]
@@ -42,14 +42,13 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             // Assert
             Assert.Equal(model, result.Value);
             Assert.Equal(_options, result.SerializerOptions);
-            Assert.Equal(MessagePackDefaults.MediaType, result.ContentType);
         }
 
         [Fact]
         public void Constructor_NullOptions_ThrowsException()
         {
             // Act
-            var exception = Assert.ThrowsAny<ArgumentNullException>(() => new MessagePackResult(10, null));
+            var exception = Assert.ThrowsAny<ArgumentNullException>(() => new MessagePackResult(10, null!));
 
             // Assert
             Assert.Equal("serializerOptions", exception.ParamName);
@@ -62,7 +61,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             var result = new MessagePackResult(null);
 
             // Act
-            var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => result.ExecuteResultAsync(null));
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => result.ExecuteResultAsync(null!));
 
             // Assert
             Assert.Equal("context", exception.ParamName);
@@ -168,31 +167,22 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             Assert.Equal(10, result.Value);
         }
 
-        [Fact]
-        public void ContentType_Property()
-        {
-            // Arrange
-            var result = new MessagePackResult(null);
-
-            // Act
-            result.ContentType = "content/type";
-
-            // Assert
-            Assert.Equal("content/type", result.ContentType);
-        }
 
         private T ReadModel<T>(ActionContext context)
         {
-            if (context.HttpContext.Response.Body.Length == 0)
-                return default;
-
             context.HttpContext.Response.Body.Position = 0;
             return MessagePackSerializer.Deserialize<T>(context.HttpContext.Response.Body, _options);
         }
 
         private ActionContext CreateContext()
         {
+            var services = new ServiceCollection();
+            services.AddLogging();
+            services.AddMvc();
+            services.AddMvcCore();
+
             var httpContext = new DefaultHttpContext();
+            httpContext.RequestServices = services.BuildServiceProvider();
             httpContext.Response.Body = new MemoryStream();
             return new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
         }

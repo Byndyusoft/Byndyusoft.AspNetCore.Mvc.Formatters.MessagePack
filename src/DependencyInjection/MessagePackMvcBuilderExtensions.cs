@@ -1,41 +1,41 @@
 ﻿// ReSharper disable CheckNamespace
 
-using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
-    /// Extension methods for adding MessagePack formatters to MVC.
+    ///     Extension methods for adding MessagePack formatters to MVC.
     /// </summary>
     public static class MessagePackMvcBuilderExtensions
     {
         /// <summary>
-        /// Adds the MessagePack formatters to MVC.
+        ///     Adds the MessagePack formatters to MVC.
         /// </summary>
-        /// <param name="builder">The <see cref="IMvcBuilder"/>.</param>
-        /// <returns>The <see cref="IMvcBuilder"/>.</returns>
+        /// <param name="builder">The <see cref="IMvcBuilder" />.</param>
+        /// <returns>The <see cref="IMvcBuilder" />.</returns>
         public static IMvcBuilder AddMessagePackFormatters(this IMvcBuilder builder)
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            Guard.NotNull(builder, nameof(builder));
 
             AddMessagePackFormatterServices(builder.Services);
             return builder;
         }
 
         /// <summary>
-        /// Adds the MessagePack formatters to MVC.
+        ///     Adds the MessagePack formatters to MVC.
         /// </summary>
-        /// <param name="builder">The <see cref="IMvcBuilder"/>.</param>
-        /// <param name="setupAction">The <see cref="MvcMessagePackOptions"/> which need to be configured.</param>
-        /// <returns>The <see cref="IMvcBuilder"/>.</returns>
+        /// <param name="builder">The <see cref="IMvcBuilder" />.</param>
+        /// <param name="setupAction">The <see cref="MvcMessagePackOptions" /> which need to be configured.</param>
+        /// <returns>The <see cref="IMvcBuilder" />.</returns>
         public static IMvcBuilder AddMessagePackFormatters(this IMvcBuilder builder,
             Action<MvcMessagePackOptions> setupAction)
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
-            if (setupAction == null) throw new ArgumentNullException(nameof(setupAction));
+            Guard.NotNull(builder, nameof(builder));
+            Guard.NotNull(setupAction, nameof(setupAction));
 
             builder.Services.Configure(setupAction);
 
@@ -43,29 +43,29 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// Adds the MessagePack formatters to MVC.
+        ///     Adds the MessagePack formatters to MVC.
         /// </summary>
-        /// <param name="builder">The <see cref="IMvcCoreBuilder"/>.</param>
-        /// <returns>The <see cref="IMvcCoreBuilder"/>.</returns>
+        /// <param name="builder">The <see cref="IMvcCoreBuilder" />.</param>
+        /// <returns>The <see cref="IMvcCoreBuilder" />.</returns>
         public static IMvcCoreBuilder AddMessagePackFormatters(this IMvcCoreBuilder builder)
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            Guard.NotNull(builder, nameof(builder));
 
             AddMessagePackFormatterServices(builder.Services);
             return builder;
         }
 
         /// <summary>
-        /// Adds the MessagePack formatters to MVC.
+        ///     Adds the MessagePack formatters to MVC.
         /// </summary>
-        /// <param name="builder">The <see cref="IMvcCoreBuilder"/>.</param>
-        /// <param name="setupAction">The <see cref="MvcMessagePackOptions"/> which need to be configured.</param>
-        /// <returns>The <see cref="IMvcCoreBuilder"/>.</returns>
+        /// <param name="builder">The <see cref="IMvcCoreBuilder" />.</param>
+        /// <param name="setupAction">The <see cref="MvcMessagePackOptions" /> which need to be configured.</param>
+        /// <returns>The <see cref="IMvcCoreBuilder" />.</returns>
         public static IMvcCoreBuilder AddMessagePackFormatters(this IMvcCoreBuilder builder,
             Action<MvcMessagePackOptions> setupAction)
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
-            if (setupAction == null) throw new ArgumentNullException(nameof(setupAction));
+            Guard.NotNull(builder, nameof(builder));
+            Guard.NotNull(setupAction, nameof(setupAction));
 
             builder.Services.Configure(setupAction);
 
@@ -76,10 +76,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.TryAddEnumerable(
                 ServiceDescriptor.Transient<IConfigureOptions<MvcOptions>, MvcMessagePackOptionsSetup>());
-            services.TryAddEnumerable(
-                ServiceDescriptor
-                    .Transient<IPostConfigureOptions<MvcMessagePackOptions>,
-                        MvcMessagePackOptionsConfigureCompatibilityOptions>());
         }
     }
 }

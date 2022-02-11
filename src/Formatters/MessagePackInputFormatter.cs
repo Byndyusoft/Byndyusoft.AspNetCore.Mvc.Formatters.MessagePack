@@ -1,27 +1,30 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using MessagePack;
+﻿using MessagePack;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Net.Http;
+using System.Net.Http.MessagePack;
+using System.Threading.Tasks;
 
 namespace Microsoft.AspNetCore.Mvc.Formatters
 {
     /// <summary>
-    /// A <see cref="InputFormatter"/> for MessagePack content that uses <see cref="MessagePackSerializer"/>.
+    ///     A <see cref="InputFormatter" /> for MessagePack content that uses <see cref="MessagePackSerializer" />.
     /// </summary>
     public class MessagePackInputFormatter : InputFormatter, IInputFormatterExceptionPolicy
     {
+        //private readonly MessagePackMediaTypeFormatter
         private readonly ILogger<MessagePackInputFormatter> _logger;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MessagePackInputFormatter"/>.
+        ///     Initializes a new instance of <see cref="MessagePackInputFormatter" />.
         /// </summary>
-        /// <param name="logger">The <see cref="ILogger"/>.</param>
-        /// <param name="options">The <see cref="MvcMessagePackOptions"/>.</param>
+        /// <param name="logger">The <see cref="ILogger" />.</param>
+        /// <param name="options">The <see cref="MvcMessagePackOptions" />.</param>
         public MessagePackInputFormatter(MvcMessagePackOptions options, ILogger<MessagePackInputFormatter> logger)
         {
-            if (options == null) throw new ArgumentNullException(nameof(options));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            Guard.NotNull(options, nameof(options));
+
+            _logger = Guard.NotNull(logger, nameof(logger));
 
             SerializerOptions = options.SerializerOptions;
 
@@ -29,11 +32,11 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         }
 
         /// <summary>
-        /// Gets the <see cref="MessagePackSerializerOptions"/> used to configure the <see cref="MessagePackSerializer"/>.
+        ///     Gets the <see cref="MessagePackSerializerOptions" /> used to configure the <see cref="MessagePackSerializer" />.
         /// </summary>
         /// <remarks>
-        /// A single instance of <see cref="MessagePackInputFormatter"/> is used for all MessagePack formatting. Any
-        /// changes to the options will affect all input formatting.
+        ///     A single instance of <see cref="MessagePackInputFormatter" /> is used for all MessagePack formatting. Any
+        ///     changes to the options will affect all input formatting.
         /// </remarks>
         public MessagePackSerializerOptions SerializerOptions { get; }
 
@@ -42,38 +45,29 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
             InputFormatterExceptionPolicy.MalformedInputExceptions;
 
         /// <inheritdoc />
-        protected override bool CanReadType(Type type)
+        protected override bool CanReadType(Type? type)
         {
-            return base.CanReadType(type) && !type.IsAbstract && !type.IsInterface;
+            return type == null || base.CanReadType(type) && MessagePackContent.CanSerialize(type);
         }
 
         /// <inheritdoc />
         public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            Guard.NotNull(context, nameof(context));
 
-            object model = null;
-            using (var stream = new MemoryStream())
+            object? model;
+
+            try
             {
-                await context.HttpContext.Request.Body.CopyToAsync(stream).ConfigureAwait(false);
-
-                if (stream.Length != 0)
-                {
-                    stream.Position = 0;
-                    try
-                    {
-                        model = await MessagePackSerializer
-                            .DeserializeAsync(context.ModelType, stream, SerializerOptions)
-                            .ConfigureAwait(false);
-                    }
-                    catch (MessagePackSerializationException exception)
-                    {
-                        Log.MessagePackInputException(_logger, exception);
-
-                        context.ModelState.TryAddModelError(string.Empty, exception, context.Metadata);
-                        return await InputFormatterResult.FailureAsync();
-                    }
-                }
+                using var content = new StreamContent(context.HttpContext.Request.Body);
+                model = await content.ReadFromMessagePackAsync(context.ModelType, SerializerOptions)
+                    .ConfigureAwait(false);
+            }
+            catch (MessagePackSerializationException exception)
+            {
+                Log.MessagePackInputException(_logger, exception);
+                context.ModelState.TryAddModelError(string.Empty, exception, context.Metadata);
+                return await InputFormatterResult.FailureAsync();
             }
 
             if (model == null && context.TreatEmptyInputAsDefaultValue == false)
@@ -88,7 +82,7 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
             // ReSharper disable InconsistentNaming
             private static readonly Action<ILogger, string, Exception> _msgpackInputFormatterException;
 
-            private static readonly Action<ILogger, string, Exception> _msgpackInputSuccess;
+            private static readonly Action<ILogger, string, Exception?> _msgpackInputSuccess;
             // ReSharper enable InconsistentNaming
 
             static Log()
@@ -104,10 +98,14 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
             }
 
             public static void MessagePackInputException(ILogger logger, Exception exception)
-                => _msgpackInputFormatterException(logger, exception.Message, exception);
+            {
+                _msgpackInputFormatterException(logger, exception.Message, exception);
+            }
 
             public static void MessagePackInputSuccess(ILogger logger, Type modelType)
-                => _msgpackInputSuccess(logger, modelType.FullName, null);
+            {
+                _msgpackInputSuccess(logger, modelType.FullName!, null);
+            }
         }
     }
 }
