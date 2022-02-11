@@ -19,9 +19,8 @@
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<None Include="$(SolutionDir)\icon.png" Pack="true" PackagePath="icon.png" />
+		<None Include="..\icon.png" Pack="true" PackagePath="icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
