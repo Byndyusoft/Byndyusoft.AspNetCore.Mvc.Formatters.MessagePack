@@ -19,7 +19,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Controllers
         /// <summary>
         ///     Get
         /// </summary>
-        [HttpGet(".{format?}")]
+        [HttpGet]
         [FormatFilter]
         public IActionResult Get()
         {
