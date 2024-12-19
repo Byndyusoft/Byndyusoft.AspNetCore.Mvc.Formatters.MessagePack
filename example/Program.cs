@@ -1,28 +1,41 @@
-using Microsoft.AspNetCore.Hosting;
+using Asp.Versioning;
+using Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack.Swagger;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Byndyusoft.AspNetCore.Mvc.Formatters.MessagePack
-{
-    /// <summary>
-    ///     Program
-    /// </summary>
-    public static class Program
-    {
-        /// <summary>
-        ///     Main
-        /// </summary>
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+var builder = WebApplication.CreateBuilder(args);
 
-        private static IHostBuilder CreateHostBuilder(string[] args)
+var services = builder.Services;
+services
+    .AddApiVersioning(
+        options =>
         {
-            return Host.CreateDefaultBuilder(args)
-                       .ConfigureWebHostDefaults(webBuilder =>
-                       {
-                           webBuilder.UseStartup<Startup>();
-                       });
+            options.DefaultApiVersion = ApiVersion.Default;
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.ReportApiVersions = true;
         }
-    }
-}
+    )
+    .AddApiExplorer(
+        options =>
+        {
+            options.GroupNameFormat = "'v'VVV";
+            options.SubstituteApiVersionInUrl = true;
+        }
+    );
+
+services.AddSwagger();
+
+services
+    .AddMvcCore()
+    .AddMessagePackFormatters()
+    .AddFormatterMappings();
+services.AddControllers();
+
+var app = builder.Build();
+if (app.Environment.IsProduction() == false)
+    app.UseSwaggerWithApiVersionDescriptionProvider();
+
+app.MapControllers();
+app.UseRouting();
+app.Run();
