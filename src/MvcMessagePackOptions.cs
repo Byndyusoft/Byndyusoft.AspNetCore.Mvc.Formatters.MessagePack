@@ -23,8 +23,8 @@ namespace Microsoft.AspNetCore.Mvc
             _allowInputFormatterExceptionMessages =
                 new CompatibilitySwitch<bool>(nameof(AllowInputFormatterExceptionMessages));
 
-            SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationXMessagePack);
             SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationMessagePack);
+            SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationXMessagePack);
         }
 
         /// <summary>

@@ -27,8 +27,8 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         {
             SerializerOptions = Guard.NotNull(serializerOptions, nameof(serializerOptions));
 
-            SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationXMessagePack);
             SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationMessagePack);
+            SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationXMessagePack);
         }
 
 
