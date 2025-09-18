@@ -1,6 +1,8 @@
 ﻿using MessagePack;
 using System;
+using System.Net.Http.Formatting;
 using System.Net.Http.MessagePack;
+using System.Net.Http.MessagePack.Formatting;
 using System.Threading.Tasks;
 
 namespace Microsoft.AspNetCore.Mvc.Formatters
@@ -10,6 +12,8 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
     /// </summary>
     public class MessagePackOutputFormatter : OutputFormatter
     {
+        private readonly MessagePackMediaTypeFormatter _mediaTypeFormatter;
+
         /// <summary>
         ///     Initializes a new <see cref="MessagePackOutputFormatter" /> instance.
         /// </summary>
@@ -20,6 +24,8 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
 
             SerializerOptions = options.SerializerOptions;
 
+            _mediaTypeFormatter = new MessagePackMediaTypeFormatter(SerializerOptions);
+
             foreach (var mediaType in options.SupportedMediaTypes) SupportedMediaTypes.Add(mediaType);
         }
 
@@ -27,8 +33,10 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         {
             SerializerOptions = Guard.NotNull(serializerOptions, nameof(serializerOptions));
 
-            SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationMessagePack);
+            _mediaTypeFormatter = new MessagePackMediaTypeFormatter(SerializerOptions);
+
             SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationXMessagePack);
+            SupportedMediaTypes.Add(MessagePackDefaults.MediaTypes.ApplicationMessagePack);
         }
 
 
@@ -52,9 +60,10 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         {
             Guard.NotNull(context, nameof(context));
 
-            await using var content = MessagePackContent.Create(context.ObjectType ?? typeof(object), context.Object, SerializerOptions);
-            await content.CopyToAsync(context.HttpContext.Response.Body).ConfigureAwait(false);
-            content.Headers.ContentLength = context.HttpContext.Response.ContentLength;
+            var cancellationToken = context.HttpContext.RequestAborted;
+
+            await _mediaTypeFormatter.WriteToStreamAsync(context.ObjectType ?? typeof(object), context.Object,
+                context.HttpContext.Response.Body, cancellationToken);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using MessagePack;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Net.Http;
 using System.Net.Http.MessagePack;
+using System.Net.Http.MessagePack.Formatting;
 using System.Threading.Tasks;
 
 namespace Microsoft.AspNetCore.Mvc.Formatters
@@ -12,7 +12,8 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
     /// </summary>
     public class MessagePackInputFormatter : InputFormatter, IInputFormatterExceptionPolicy
     {
-        //private readonly MessagePackMediaTypeFormatter
+        private readonly MessagePackMediaTypeFormatter _mediaTypeFormatter;
+
         private readonly ILogger<MessagePackInputFormatter> _logger;
 
         /// <summary>
@@ -29,6 +30,8 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
             SerializerOptions = options.SerializerOptions;
 
             foreach (var mediaType in options.SupportedMediaTypes) SupportedMediaTypes.Add(mediaType);
+
+            _mediaTypeFormatter = new MessagePackMediaTypeFormatter(SerializerOptions);
         }
 
         /// <summary>
@@ -55,13 +58,18 @@ namespace Microsoft.AspNetCore.Mvc.Formatters
         {
             Guard.NotNull(context, nameof(context));
 
+            var cancellationToken = context.HttpContext.RequestAborted;
+
             object? model;
 
             try
             {
-                using var content = new StreamContent(context.HttpContext.Request.Body);
-                model = await content.ReadFromMessagePackAsync(context.ModelType, SerializerOptions)
-                    .ConfigureAwait(false);
+                model = await _mediaTypeFormatter.ReadFromStreamAsync(
+                    context.ModelType,
+                    context.HttpContext.Request.Body,
+                    null,
+                    null,
+                    cancellationToken).ConfigureAwait(false);
             }
             catch (MessagePackSerializationException exception)
             {
