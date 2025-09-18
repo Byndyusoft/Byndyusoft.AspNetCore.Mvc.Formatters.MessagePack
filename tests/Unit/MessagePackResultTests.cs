@@ -93,7 +93,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             await result.ExecuteResultAsync(context);
 
             // Assert
-            Assert.Equal(MessagePackDefaults.MediaType, context.HttpContext.Response.ContentType);
+            Assert.Equal(MessagePackDefaults.MediaTypes.ApplicationXMessagePack, context.HttpContext.Response.ContentType);
         }
 
         [Fact]

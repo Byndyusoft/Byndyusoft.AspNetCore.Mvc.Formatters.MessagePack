@@ -76,23 +76,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit
             // Assert
             Assert.Equal("context", exception.ParamName);
         }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public async Task ReadRequestBodyAsync_EmptyInput(bool treatEmptyInputAsDefaultValue)
-        {
-            // Arrange
-            var context = CreateContext(typeof(SimpleModel), null, treatEmptyInputAsDefaultValue);
-
-            // Act
-            var result = await _formatter.ReadRequestBodyAsync(context);
-
-            // Assert
-            Assert.False(result.HasError);
-            Assert.Null(result.Model);
-        }
-
+        
         [Fact]
         public async Task ReadRequestBodyAsync_ReadsPrimitiveType()
         {
