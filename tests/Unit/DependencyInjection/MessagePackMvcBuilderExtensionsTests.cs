@@ -42,7 +42,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
             _mvcBuilder.AddMessagePackFormatters();
 
             // Assert
-            var mvcOptions = _serviceCollection.BuildServiceProvider().GetService<IOptions<MvcOptions>>().Value;
+            var mvcOptions = _serviceCollection.BuildServiceProvider().GetRequiredService<IOptions<MvcOptions>>().Value;
             Assert.Single(mvcOptions.InputFormatters, x => x.GetType() == typeof(MessagePackInputFormatter));
             Assert.Single(mvcOptions.OutputFormatters, x => x.GetType() == typeof(MessagePackOutputFormatter));
 
@@ -62,7 +62,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
                 msgpack.SupportedMediaTypes.Add("application/mediatype");
                 msgpack.MediaTypeFormat = "format";
             });
-            var mvcOptions = _serviceCollection.BuildServiceProvider().GetService<IOptions<MvcOptions>>().Value;
+            var mvcOptions = _serviceCollection.BuildServiceProvider().GetRequiredService<IOptions<MvcOptions>>().Value;
 
             // Assert
             var inputFormatter = (MessagePackInputFormatter)Assert.Single(mvcOptions.InputFormatters,
@@ -124,7 +124,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
             _mvcCoreBuilder.AddMessagePackFormatters();
 
             // Assert
-            var mvcOptions = _serviceCollection.BuildServiceProvider().GetService<IOptions<MvcOptions>>().Value;
+            var mvcOptions = _serviceCollection.BuildServiceProvider().GetRequiredService<IOptions<MvcOptions>>().Value;
             Assert.Single(mvcOptions.InputFormatters, x => x.GetType() == typeof(MessagePackInputFormatter));
             Assert.Single(mvcOptions.OutputFormatters, x => x.GetType() == typeof(MessagePackOutputFormatter));
 
@@ -144,7 +144,7 @@ namespace Byndyusoft.AspNetCore.Mvc.Formatters.Unit.DependencyInjection
                 msgpack.SupportedMediaTypes.Add("application/mediatype");
                 msgpack.MediaTypeFormat = "format";
             });
-            var mvcOptions = _serviceCollection.BuildServiceProvider().GetService<IOptions<MvcOptions>>().Value;
+            var mvcOptions = _serviceCollection.BuildServiceProvider().GetRequiredService<IOptions<MvcOptions>>().Value;
 
             // Assert
             var inputFormatter = (MessagePackInputFormatter)Assert.Single(mvcOptions.InputFormatters,
